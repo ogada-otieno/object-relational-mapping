@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+require 'pry'
+require_relative '../config/environment'
+
+def reset_database
+    Giraffe.drop_table
+    Giraffe.create_table
+    Giraffe.new_giraffe(name: 'Tall', limbs: 4, height: 2, gender: 'F', age: 1)
+    Giraffe.new_giraffe(name: 'Refu', limbs: 4, height: 3, gender: 'M', age: 2)
+    Giraffe.new_giraffe(name: 'Twiga', limbs: 4, height: 2, gender: 'M', age: 3)
+    Giraffe.new_giraffe(name: 'Yoo', limbs: 4, height: 2, gender: 'F', age: 2)
+    Giraffe.new_giraffe(name: 'Tolo', limbs: 4, height: 2, gender: 'M', age: 1)
+end
+
+reset_database
+
+binding.pry
+"pls"
