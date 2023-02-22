@@ -10,17 +10,6 @@ class Giraffe
       @id = id
     end
 
-    # Deletes the specified table, and any data associated with it
-    # the IF EXISTS clause allows the statement to succeed even if the specified table doesn't exist.
-    # if the table doesn't exist, and you don't include the IF EXISTS clause, an error is raised
-    def self.drop_table
-      sql = <<-SQL
-        DROP TABLE IF EXISTS giraffe
-      SQL
-
-      DB[:conn].execute(sql)
-    end
-
     # create table
     def self.create_table
       sql = <<-SQL
@@ -32,6 +21,17 @@ class Giraffe
           gender TEXT, 
           age INTEGER
         )
+      SQL
+
+      DB[:conn].execute(sql)
+    end
+
+     # Deletes the specified table, and any data associated with it
+    # the IF EXISTS clause allows the statement to succeed even if the specified table doesn't exist.
+    # if the table doesn't exist, and you don't include the IF EXISTS clause, an error is raised
+    def self.drop_table
+      sql = <<-SQL
+        DROP TABLE IF EXISTS giraffe
       SQL
 
       DB[:conn].execute(sql)
