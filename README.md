@@ -10,3 +10,4 @@
 - Build a Giraffe.find_by_name class method that accepts one argument, a name, searches the database for a giraffe with that name and returns the matching giraffe entry if one is found
 - Convert what the database gives you into a Ruby object
 - Update the database to correct for wrong information using Giraffe#update.
+- The #save method should not allow for duplication of the same data. In the event that an object has already been persisted in the database, the #save method should raise an exception.

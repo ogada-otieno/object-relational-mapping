@@ -39,20 +39,24 @@ class Giraffe
 
     # insert data into table
     def save
-      sql = <<-SQL
-        INSERT INTO giraffe (name, limbs, height, gender, age)
-        VALUES(?, ?, ?, ?, ?)
-      SQL
+      # the control flow ensures that there is no persistence of duplicate data. 
+      if self.id
+        self.update
+      else  
+        sql = <<-SQL
+          INSERT INTO giraffe (name, limbs, height, gender, age)
+          VALUES(?, ?, ?, ?, ?)
+        SQL
 
-      # insert the giraffe
-      DB[:conn].execute(sql, self.name, self.limbs, self.height, self.gender, self.age)
+        # insert the giraffe
+        DB[:conn].execute(sql, self.name, self.limbs, self.height, self.gender, self.age)
 
-      # get the giraffe id from the database and save it to the Ruby instance
-      # it's possible to replace self.id with @id
-      @id = DB[:conn].execute("SELECT last_insert_rowid() FROM giraffe")[0][0]
-
+        # get the giraffe id from the database and save it to the Ruby instance
+        # it's possible to replace self.id with @id
+        @id = DB[:conn].execute("SELECT last_insert_rowid() FROM giraffe")[0][0]
+      end 
       # return the Ruby instance
-      self
+      # self
     end
 
     # here we use keyword arguments to pass the data into the .create method
