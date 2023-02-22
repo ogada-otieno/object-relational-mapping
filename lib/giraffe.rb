@@ -48,7 +48,8 @@ class Giraffe
       DB[:conn].execute(sql, self.name, self.limbs, self.height, self.gender, self.age)
 
       # get the giraffe id from the database and save it to the Ruby instance
-      self.id = DB[:conn].execute("SELECT last_insert_rowid() FROM giraffe")[0][0]
+      # it's possible to replace self.id with @id
+      @id = DB[:conn].execute("SELECT last_insert_rowid() FROM giraffe")[0][0]
 
       # return the Ruby instance
       self
@@ -95,6 +96,14 @@ class Giraffe
       DB[:conn].execute(sql, name).map do |row|
         self.read_giraffe(row)
       end.first
+    end
+
+    # using the ID, #update method updates the giraffe in the database. 
+    # it identifies the correct giraffe based on its unique ID.
+    def update
+      sql = "UPDATE giraffe SET name = ?, limbs = ?, height = ?, gender = ?, age = ? WHERE id = ?"
+
+      DB[:conn].execute(sql, self.name, self.limbs, self.height, self.gender, self.age, self.id)
     end
 
 
